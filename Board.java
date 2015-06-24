@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -16,7 +17,11 @@ public class Board extends JPanel implements ActionListener {
     private Timer timer;
     private Score score;
     
-    private boolean isPlaying = false;
+    private boolean isPlaying = true;
+    
+    private Fila fila = new Fila();
+    private String direcao = "parado";
+    private boolean gameOver = false;
 
     private Font font;
        
@@ -29,7 +34,13 @@ public class Board extends JPanel implements ActionListener {
         setBackground(Color.WHITE);
 
         score = new Score();
-        add(score);       
+        add(score);
+        
+        Snake snake = fila.getHead();
+        while(snake.getProximo() != null){
+            add(snake);
+            snake = snake.getProximo();
+        }
         
         timer = new Timer(5, this);
         timer.start();
@@ -41,7 +52,14 @@ public class Board extends JPanel implements ActionListener {
         
         score.paintComponent(g);
         
-        Graphics2D g2d = (Graphics2D)g;        
+        Graphics2D g2d = (Graphics2D)g;
+        
+        if(isPlaying){
+            Snake cabeca = fila.getHead();
+            if(cabeca.getProximo() == null){
+                g2d.drawImage(cabeca.getImage(), cabeca.getX(), cabeca.getY(), this);                
+            }
+        }
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
@@ -68,9 +86,47 @@ public class Board extends JPanel implements ActionListener {
     }
     
     public void actionPerformed(ActionEvent e) {        
-        repaint();  
+        repaint();
+        if(!gameOver){
+            mover();
+        } else {
+            JOptionPane.showMessageDialog (null, "Game over!\n Your score was: " + score.getScore());
+            System.exit(0);
+        }
     }
     
+    public void mover() {
+        switch (direcao) {
+            case "esquerda":
+                fila.getHead().setX(-1);
+                fila.getHead().setY(0);
+                if (fila.getHead().getX() < 0) gameOver = true; 
+                break;
+                
+            case "direita":
+                fila.getHead().setX(1);
+                fila.getHead().setY(0);
+                if (fila.getHead().getX() > (800 - fila.getHead().getWidth())) gameOver = true; 
+                break;
+                
+            case "cima":
+                fila.getHead().setX(0);
+                fila.getHead().setY(-1);
+                if (fila.getHead().getY() < 0) gameOver = true; 
+                break;
+                
+            case "baixo":
+                fila.getHead().setX(0);
+                fila.getHead().setY(1);
+                if (fila.getHead().getY() > (600 - fila.getHead().getHeight())) gameOver = true; 
+                break;
+                
+            case "parado":
+                fila.getHead().setX(0);
+                fila.getHead().setY(0);
+                break;
+        }
+    }
     
     private class TAdapter extends KeyAdapter {
 
@@ -81,21 +137,22 @@ public class Board extends JPanel implements ActionListener {
 
             switch (key){
                 case KeyEvent.VK_ENTER:
-                    score.addScore(100);
                     break;
                     
                 case KeyEvent.VK_LEFT:
+                    direcao = "esquerda";
                     break;
                     
                 case KeyEvent.VK_RIGHT:
+                    direcao = "direita";
                     break;
                     
                 case KeyEvent.VK_UP:
-                    score.addScore(10);
+                    direcao = "cima";
                     break;
                     
                 case KeyEvent.VK_DOWN:
-                    score.subScore(-10);
+                    direcao = "baixo";
                     break;
             }
             

@@ -66,6 +66,10 @@ public class Score extends JPanel
         }   
         g2d.drawString("Score: " + this.score, 600, 50);
     }
+    
+    public int getScore(){
+        return this.score;
+    }
 
     /**
     * Override do método que pinta este componente, pois ele é um JPanel.
