@@ -12,12 +12,14 @@ public class Fila
         return head;
     }
     
-    public void inserir(Snake _snake) {
+    public void inserir() {
+        Snake novo = new Snake();
         Snake aux = inicio;
         while (aux.getProximo() != null) {
             aux = aux.getProximo();
-        }
-        aux.setProximo(_snake);
+        }        
+        aux.setProximo(novo);        
+        novo.setAnterior(aux);
     }
     
     public Snake getSnake(int position) {
