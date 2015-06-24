@@ -87,7 +87,12 @@ public class Board extends JPanel implements ActionListener {
         }
     }
     
-    public void actionPerformed(ActionEvent e) {        
+    public void actionPerformed(ActionEvent e) {
+        try {
+            Thread.sleep(100);
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
         repaint();
         if(!gameOver){
             mover();
@@ -100,14 +105,14 @@ public class Board extends JPanel implements ActionListener {
     public void mover() {
         switch (direcao) {
             case "esquerda":
-                fila.getHead().setX(-2);
+                fila.getHead().setX(-25);
                 fila.getHead().setY(0);                
                 if(comeu()) score.addScore(10);
                 if (fila.getHead().getX() < 0) gameOver = true;
                 break;
                 
             case "direita":
-                fila.getHead().setX(2);
+                fila.getHead().setX(25);
                 fila.getHead().setY(0);
                 if(comeu()) score.addScore(10);
                 if (fila.getHead().getX() > (800 - fila.getHead().getW())) gameOver = true; 
@@ -115,14 +120,14 @@ public class Board extends JPanel implements ActionListener {
                 
             case "cima":
                 fila.getHead().setX(0);
-                fila.getHead().setY(-2);
+                fila.getHead().setY(-25);
                 if(comeu()) score.addScore(10);
                 if (fila.getHead().getY() < 0) gameOver = true; 
                 break;
                 
             case "baixo":
                 fila.getHead().setX(0);
-                fila.getHead().setY(2);
+                fila.getHead().setY(25);
                 if(comeu()) score.addScore(10);
                 if (fila.getHead().getY() > (600 - fila.getHead().getH())) gameOver = true; 
                 break;
@@ -157,19 +162,20 @@ public class Board extends JPanel implements ActionListener {
                     break;
                     
                 case KeyEvent.VK_LEFT:
-                    direcao = "esquerda";
+                    if(!(direcao.equals("direita")))direcao = "esquerda";
+                    
                     break;
                     
                 case KeyEvent.VK_RIGHT:
-                    direcao = "direita";
+                    if(!(direcao.equals("esquerda")))direcao = "direita";
                     break;
                     
                 case KeyEvent.VK_UP:
-                    direcao = "cima";
+                    if(!(direcao.equals("baixo")))direcao = "cima";
                     break;
                     
                 case KeyEvent.VK_DOWN:
-                    direcao = "baixo";
+                    if(!(direcao.equals("cima")))direcao = "baixo";
                     break;
             }
             
