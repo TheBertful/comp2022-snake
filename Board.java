@@ -23,6 +23,7 @@ public class Board extends JPanel implements ActionListener {
     private Fila fila = new Fila();
     private String direcao = "parado";
     private boolean gameOver = false;
+    private boolean esperarMover;
 
     private Font font;
        
@@ -91,7 +92,7 @@ public class Board extends JPanel implements ActionListener {
     
     public void actionPerformed(ActionEvent e) {
         try {
-            Thread.sleep(100);
+            Thread.sleep(75);
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
@@ -111,27 +112,31 @@ public class Board extends JPanel implements ActionListener {
                 fila.getHead().setY(0);                
                 if(comeu()) score.addScore(10);
                 if (fila.getHead().getX() < 0) gameOver = true;
+                esperarMover = false;
                 break;
                 
             case "direita":
                 fila.getHead().setX(25);
                 fila.getHead().setY(0);
                 if(comeu()) score.addScore(10);
-                if (fila.getHead().getX() > (800 - fila.getHead().getW())) gameOver = true; 
+                if (fila.getHead().getX() > (800 - fila.getHead().getW())) gameOver = true;
+                esperarMover = false;
                 break;
                 
             case "cima":
                 fila.getHead().setX(0);
                 fila.getHead().setY(-25);
                 if(comeu()) score.addScore(10);
-                if (fila.getHead().getY() < 0) gameOver = true; 
+                if (fila.getHead().getY() < 0) gameOver = true;
+                esperarMover = false;
                 break;
                 
             case "baixo":
                 fila.getHead().setX(0);
                 fila.getHead().setY(25);
                 if(comeu()) score.addScore(10);
-                if (fila.getHead().getY() > (600 - fila.getHead().getH())) gameOver = true; 
+                if (fila.getHead().getY() > (600 - fila.getHead().getH())) gameOver = true;
+                esperarMover = false;
                 break;
                 
             case "parado":
@@ -139,6 +144,7 @@ public class Board extends JPanel implements ActionListener {
                 fila.getHead().setY(0);
                 break;
         }
+        fila.getHead().setImage();
     }
     
     public boolean comeu(){
@@ -163,20 +169,31 @@ public class Board extends JPanel implements ActionListener {
                     break;
                     
                 case KeyEvent.VK_LEFT:
-                    if(!(direcao.equals("direita")))direcao = "esquerda";
-                    
+                    if(!(direcao.equals("direita")) && !esperarMover){
+                        direcao = "esquerda";
+                        esperarMover=true;
+                    }                    
                     break;
                     
                 case KeyEvent.VK_RIGHT:
-                    if(!(direcao.equals("esquerda")))direcao = "direita";
+                    if(!(direcao.equals("esquerda")) && !esperarMover){
+                        direcao = "direita";
+                        esperarMover=true;
+                    }
                     break;
                     
                 case KeyEvent.VK_UP:
-                    if(!(direcao.equals("baixo")))direcao = "cima";
+                    if(!(direcao.equals("baixo")) && !esperarMover){
+                        direcao = "cima";
+                        esperarMover=true;
+                    }
                     break;
                     
                 case KeyEvent.VK_DOWN:
-                    if(!(direcao.equals("cima")))direcao = "baixo";
+                    if(!(direcao.equals("cima")) && !esperarMover){
+                        direcao = "baixo";
+                        esperarMover=true;
+                    }
                     break;
             }
             

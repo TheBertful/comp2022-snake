@@ -17,8 +17,8 @@ public class Food
         Random rand = new Random();
         this.w = 50;
         this.h = 50;
-        this.x = rand.nextInt(15)*50 + w;
-        this.y = rand.nextInt(11)*50 + h;
+        this.x = rand.nextInt(14)*50 + w;
+        this.y = rand.nextInt(10)*50 + h;
         ImageIcon ii = new ImageIcon(this.getClass().getResource(food));
         image = ii.getImage();
     }

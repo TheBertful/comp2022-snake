@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
  */
 public class Snake extends JPanel
 {
-    private String head = "images/head.png";
+    private String head = "images/headL.png";
     
     private String corpo = "images/body.png";
     private Snake proximo;
@@ -27,6 +27,23 @@ public class Snake extends JPanel
     
     public Snake() {        
         ImageIcon ii;
+        switch(direcao){
+            case "direita":
+                head = "images/headD.png";
+                break;
+            case "esquerda":
+                head = "images/headL.png";
+                break;
+            case "cima":
+                head = "images/headU.png";
+                break;
+            case "baixo":
+                head = "images/headD.png";
+                break;
+            default:
+                head = "images/headL.png";
+                break;
+        }
         ii= new ImageIcon(this.getClass().getResource(head));
         image = ii.getImage();
         x = 700;
@@ -68,6 +85,29 @@ public class Snake extends JPanel
     
     public void setProximo(Snake proximo){
         this.proximo = proximo;
+    }
+    
+    public void setImage(){
+        ImageIcon ii;
+        switch(direcao){
+            case "direita":
+                head = "images/headD.png";
+                break;
+            case "esquerda":
+                head = "images/headL.png";
+                break;
+            case "cima":
+                head = "images/headU.png";
+                break;
+            case "baixo":
+                head = "images/headD.png";
+                break;
+            default:
+                head = "images/headL.png";
+                break;
+        }
+        ii= new ImageIcon(this.getClass().getResource(head));        
+        image = ii.getImage();
     }
     
     public void setX(int x) {
