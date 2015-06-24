@@ -55,6 +55,8 @@ public class Board extends JPanel implements ActionListener {
         
         Graphics2D g2d = (Graphics2D)g;
         
+        
+        
         if(isPlaying){
             Snake cabeca = fila.getHead();
             if(cabeca.getProximo() == null){
@@ -158,7 +160,6 @@ public class Board extends JPanel implements ActionListener {
 
             switch (key){
                 case KeyEvent.VK_ENTER:
-                    score.addScore(100);
                     break;
                     
                 case KeyEvent.VK_LEFT:

@@ -23,7 +23,6 @@ public class Snake extends JPanel
     private int w;
     private int h;
     private Image image;
-    private int index;
     private String direcao = "parado";
     
     public Snake() {        
@@ -32,8 +31,18 @@ public class Snake extends JPanel
         image = ii.getImage();
         x = 700;
         y = 500;
+        w = 50;
+        h = 50;
+    }
+    
+    public Snake(Snake s){
+        ImageIcon ii = new ImageIcon(this.getClass().getResource(corpo));
+        image = ii.getImage();
+        x = s.getX() + 40;
+        y = s.getY() + 40;
         w = 40;
         h = 40;
+        s.setProximo(this);
     }
     
     public void move() {

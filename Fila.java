@@ -13,13 +13,11 @@ public class Fila
     }
     
     public void inserir() {
-        Snake novo = new Snake();
         Snake aux = inicio;
         while (aux.getProximo() != null) {
             aux = aux.getProximo();
-        }        
-        aux.setProximo(novo);        
-        novo.setAnterior(aux);
+        }
+        Snake last = new Snake(aux);
     }
     
     public Snake getSnake(int position) {
