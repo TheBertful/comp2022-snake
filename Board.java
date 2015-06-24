@@ -100,14 +100,14 @@ public class Board extends JPanel implements ActionListener {
     public void mover() {
         switch (direcao) {
             case "esquerda":
-                fila.getHead().setX(-1);
+                fila.getHead().setX(-2);
                 fila.getHead().setY(0);                
                 if(comeu()) score.addScore(10);
                 if (fila.getHead().getX() < 0) gameOver = true;
                 break;
                 
             case "direita":
-                fila.getHead().setX(1);
+                fila.getHead().setX(2);
                 fila.getHead().setY(0);
                 if(comeu()) score.addScore(10);
                 if (fila.getHead().getX() > (800 - fila.getHead().getW())) gameOver = true; 
@@ -115,14 +115,14 @@ public class Board extends JPanel implements ActionListener {
                 
             case "cima":
                 fila.getHead().setX(0);
-                fila.getHead().setY(-1);
+                fila.getHead().setY(-2);
                 if(comeu()) score.addScore(10);
                 if (fila.getHead().getY() < 0) gameOver = true; 
                 break;
                 
             case "baixo":
                 fila.getHead().setX(0);
-                fila.getHead().setY(1);
+                fila.getHead().setY(2);
                 if(comeu()) score.addScore(10);
                 if (fila.getHead().getY() > (600 - fila.getHead().getH())) gameOver = true; 
                 break;
@@ -135,8 +135,9 @@ public class Board extends JPanel implements ActionListener {
     }
     
     public boolean comeu(){
-        if((fila.getHead().getY() + fila.getHead().getH()/2 <= food.getY() + food.getH()/2 && fila.getHead().getY() - fila.getHead().getH()/2 >= food.getY() - food.getH()/2) ||
+        if((fila.getHead().getY() + fila.getHead().getH()/2 <= food.getY() + food.getH()/2 && fila.getHead().getY() - fila.getHead().getH()/2 >= food.getY() - food.getH()/2) &&
             fila.getHead().getX() + fila.getHead().getW()/2 <= food.getX() + food.getW()/2 && fila.getHead().getX() - fila.getHead().getW()/2 >= food.getX() - food.getW()/2){
+            food.setPosition();
             return true;
         }else{
             return false;
