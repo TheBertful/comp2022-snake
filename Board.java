@@ -144,7 +144,6 @@ public class Board extends JPanel implements ActionListener {
                 fila.getHead().setY(0);
                 break;
         }
-        fila.getHead().setImage();
     }
     
     public boolean comeu(){

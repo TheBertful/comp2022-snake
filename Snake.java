@@ -76,18 +76,6 @@ public class Snake extends JPanel
     }
 
     public Image getImage() {
-        return image;
-    }
-    
-    public Snake getProximo(){
-        return this.proximo;
-    }
-    
-    public void setProximo(Snake proximo){
-        this.proximo = proximo;
-    }
-    
-    public void setImage(){
         ImageIcon ii;
         switch(direcao){
             case "direita":
@@ -106,8 +94,17 @@ public class Snake extends JPanel
                 head = "images/headL.png";
                 break;
         }
-        ii= new ImageIcon(this.getClass().getResource(head));        
+        ii= new ImageIcon(this.getClass().getResource(head));
         image = ii.getImage();
+        return image;
+    }
+    
+    public Snake getProximo(){
+        return this.proximo;
+    }
+    
+    public void setProximo(Snake proximo){
+        this.proximo = proximo;
     }
     
     public void setX(int x) {
