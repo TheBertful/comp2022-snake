@@ -20,18 +20,6 @@ public class Fila
         Snake last = new Snake(aux);
     }
     
-    public Snake getSnake(int position) {
-        if(position < 0 || position > getSize()){
-            return null;
-        }
-        
-        Snake aux = inicio;
-        for(int i = 1; i < position; i++) {
-            aux = aux.getProximo();
-        }
-        return aux;
-    }
-    
     private int getSize(){
         int tamanho = 1;
         Snake aux = inicio;
